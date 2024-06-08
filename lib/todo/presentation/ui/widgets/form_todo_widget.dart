@@ -42,7 +42,12 @@ class _FormTodoWidgetState extends State<FormTodoWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
+    Future<void> fetchTodos() async {
+      context.read<FetchTodosBloc>().add(const AllTodo());
+    }
+
+    return Container(
+      height: MediaQuery.sizeOf(context).height * 0.7,
       padding: const EdgeInsets.all(20),
       child: Form(
         key: formKey,
@@ -74,10 +79,22 @@ class _FormTodoWidgetState extends State<FormTodoWidget> {
             widget.isUpdate
                 ? BlocConsumer<CreateTodoBloc, CreateTodoState>(
                     listener: (context, state) {
-                      debugPrint('kambing $state');
                       if (state is UpdateTodoSuccess) {
                         Navigator.pop(context);
-                      } else if (state is UpdateTodoFailure) {}
+                        fetchTodos();
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text('Update success'),
+                          ),
+                        );
+                      } else if (state is UpdateTodoFailure) {
+                        Navigator.pop(context);
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text('Update failed'),
+                          ),
+                        );
+                      }
                     },
                     builder: (context, state) {
                       if (state is UpdateTodoLoading) {
@@ -99,10 +116,8 @@ class _FormTodoWidgetState extends State<FormTodoWidget> {
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.blue[100],
-                          minimumSize: Size(
-                            MediaQuery.sizeOf(context).width,
-                            45,
-                          ),
+                          minimumSize:
+                              Size(MediaQuery.sizeOf(context).width, 45),
                         ),
                         child: const Text('Submit'),
                       );
@@ -112,7 +127,20 @@ class _FormTodoWidgetState extends State<FormTodoWidget> {
                     listener: (context, state) {
                       if (state is CreateTodoSuccess) {
                         Navigator.pop(context);
-                      } else if (state is CreateTodoFailure) {}
+                        fetchTodos();
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text('Success add new todo'),
+                          ),
+                        );
+                      } else if (state is CreateTodoFailure) {
+                        Navigator.pop(context);
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text('Success add new todo'),
+                          ),
+                        );
+                      }
                     },
                     builder: (context, state) {
                       if (state is CreateTodoLoading) {
@@ -131,10 +159,8 @@ class _FormTodoWidgetState extends State<FormTodoWidget> {
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.blue[100],
-                          minimumSize: Size(
-                            MediaQuery.sizeOf(context).width,
-                            45,
-                          ),
+                          minimumSize:
+                              Size(MediaQuery.sizeOf(context).width, 45),
                         ),
                         child: const Text('Submit'),
                       );

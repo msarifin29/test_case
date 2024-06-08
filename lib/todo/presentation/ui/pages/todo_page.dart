@@ -45,6 +45,7 @@ class _TodoPageState extends State<TodoPage> {
       required bool isUpdate}) async {
     return await showModalBottomSheet(
       context: context,
+      isScrollControlled: true,
       builder: (context) {
         return FormTodoWidget(
           title: title,
@@ -178,7 +179,7 @@ class _TodoPageState extends State<TodoPage> {
             builder: (context) {
               return const FormTodoWidget();
             },
-          ).then((value) => onRefresh());
+          );
         },
       ),
     );
