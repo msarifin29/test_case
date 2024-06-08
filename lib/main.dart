@@ -31,8 +31,9 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Test Case',
         theme: ThemeData(
-            useMaterial3: true,
-            appBarTheme: AppBarTheme(backgroundColor: Colors.blue[100])),
+          useMaterial3: true,
+          appBarTheme: AppBarTheme(backgroundColor: Colors.blue[100]),
+        ),
         home: const TodoPage(),
       ),
     );

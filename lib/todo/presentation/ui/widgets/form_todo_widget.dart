@@ -42,13 +42,12 @@ class _FormTodoWidgetState extends State<FormTodoWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
+    return Padding(
       padding: const EdgeInsets.all(20),
       child: Form(
         key: formKey,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
           children: [
             const SizedBox(height: 20),
             const Text('Title'),
