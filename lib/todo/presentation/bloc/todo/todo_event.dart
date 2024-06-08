@@ -1,14 +1,14 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-part of 'create_todo_bloc.dart';
+part of 'todo_bloc.dart';
 
-sealed class CreateTodoEvent extends Equatable {
-  const CreateTodoEvent();
+sealed class TodoEvent extends Equatable {
+  const TodoEvent();
 
   @override
   List<Object> get props => [];
 }
 
-class OnCreated extends CreateTodoEvent {
+class OnCreated extends TodoEvent {
   const OnCreated(this.title, this.description);
   final String title;
   final String description;
@@ -20,7 +20,7 @@ class OnCreated extends CreateTodoEvent {
   }
 }
 
-class OnUpdate extends CreateTodoEvent {
+class OnUpdate extends TodoEvent {
   const OnUpdate({
     this.title,
     this.description,
@@ -37,7 +37,7 @@ class OnUpdate extends CreateTodoEvent {
   }
 }
 
-class OnRemove extends CreateTodoEvent {
+class OnRemove extends TodoEvent {
   const OnRemove({required this.id});
   final int id;
   @override

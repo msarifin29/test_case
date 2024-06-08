@@ -8,12 +8,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:test_case/todo/todo_feature.dart';
 
-part 'create_todo_event.dart';
-part 'create_todo_state.dart';
+part 'todo_event.dart';
+part 'todo_state.dart';
 
-class CreateTodoBloc extends Bloc<CreateTodoEvent, CreateTodoState> {
+class TodoBloc extends Bloc<TodoEvent, TodoState> {
   final TodoRepository repository;
-  CreateTodoBloc({required this.repository}) : super(CreateTodoInitial()) {
+  TodoBloc({required this.repository}) : super(CreateTodoInitial()) {
     on<OnCreated>((event, emit) async {
       emit(CreateTodoLoading());
       try {

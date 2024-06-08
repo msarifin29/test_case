@@ -77,7 +77,7 @@ class _FormTodoWidgetState extends State<FormTodoWidget> {
             ),
             const SizedBox(height: 20),
             widget.isUpdate
-                ? BlocConsumer<CreateTodoBloc, CreateTodoState>(
+                ? BlocConsumer<TodoBloc, TodoState>(
                     listener: (context, state) {
                       if (state is UpdateTodoSuccess) {
                         Navigator.pop(context);
@@ -107,7 +107,7 @@ class _FormTodoWidgetState extends State<FormTodoWidget> {
                                 widget.desc == descController.text.trim()) {
                               Navigator.pop(context);
                             } else {
-                              context.read<CreateTodoBloc>().add(OnUpdate(
+                              context.read<TodoBloc>().add(OnUpdate(
                                   title: titleController.text.trim(),
                                   description: descController.text.trim(),
                                   id: widget.id));
@@ -123,7 +123,7 @@ class _FormTodoWidgetState extends State<FormTodoWidget> {
                       );
                     },
                   )
-                : BlocConsumer<CreateTodoBloc, CreateTodoState>(
+                : BlocConsumer<TodoBloc, TodoState>(
                     listener: (context, state) {
                       if (state is CreateTodoSuccess) {
                         Navigator.pop(context);
@@ -149,7 +149,7 @@ class _FormTodoWidgetState extends State<FormTodoWidget> {
                       return ElevatedButton(
                         onPressed: () {
                           if (formKey.currentState!.validate()) {
-                            context.read<CreateTodoBloc>().add(
+                            context.read<TodoBloc>().add(
                                   OnCreated(
                                     titleController.text.trim(),
                                     descController.text.trim(),

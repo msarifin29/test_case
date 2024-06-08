@@ -9,6 +9,6 @@ Future<void> init() async {
   sl.registerLazySingleton<TodoRepository>(
     () => TodoRepositoryImpl(datasource: sl()),
   );
-  sl.registerFactory(() => CreateTodoBloc(repository: sl()));
+  sl.registerFactory(() => TodoBloc(repository: sl()));
   sl.registerFactory(() => FetchTodosBloc(repository: sl()));
 }

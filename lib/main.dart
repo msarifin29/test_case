@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) => CreateTodoBloc(repository: sl()),
+          create: (context) => TodoBloc(repository: sl()),
         ),
         BlocProvider(
           create: (context) => FetchTodosBloc(repository: sl()),

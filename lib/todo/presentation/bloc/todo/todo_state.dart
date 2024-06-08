@@ -1,56 +1,56 @@
-part of 'create_todo_bloc.dart';
+part of 'todo_bloc.dart';
 
-sealed class CreateTodoState extends Equatable {
-  const CreateTodoState();
+sealed class TodoState extends Equatable {
+  const TodoState();
 
   @override
   List<Object> get props => [];
 }
 
-final class CreateTodoInitial extends CreateTodoState {}
+final class CreateTodoInitial extends TodoState {}
 
-final class CreateTodoLoading extends CreateTodoState {}
+final class CreateTodoLoading extends TodoState {}
 
-final class CreateTodoSuccess extends CreateTodoState {
+final class CreateTodoSuccess extends TodoState {
   final bool ok;
   const CreateTodoSuccess({required this.ok});
   @override
   List<Object> get props => [ok];
 }
 
-final class CreateTodoFailure extends CreateTodoState {
+final class CreateTodoFailure extends TodoState {
   final String message;
   const CreateTodoFailure(this.message);
   @override
   List<Object> get props => [message];
 }
 
-final class UpdateTodoLoading extends CreateTodoState {}
+final class UpdateTodoLoading extends TodoState {}
 
-final class UpdateTodoSuccess extends CreateTodoState {
+final class UpdateTodoSuccess extends TodoState {
   final bool ok;
   const UpdateTodoSuccess({required this.ok});
   @override
   List<Object> get props => [ok];
 }
 
-final class UpdateTodoFailure extends CreateTodoState {
+final class UpdateTodoFailure extends TodoState {
   final String message;
   const UpdateTodoFailure(this.message);
   @override
   List<Object> get props => [message];
 }
 
-final class RemoveTodoLoading extends CreateTodoState {}
+final class RemoveTodoLoading extends TodoState {}
 
-final class RemoveTodoSuccess extends CreateTodoState {
+final class RemoveTodoSuccess extends TodoState {
   final bool ok;
   const RemoveTodoSuccess({required this.ok});
   @override
   List<Object> get props => [ok];
 }
 
-final class RemoveTodoFailure extends CreateTodoState {
+final class RemoveTodoFailure extends TodoState {
   final String message;
   const RemoveTodoFailure(this.message);
   @override

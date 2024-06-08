@@ -20,7 +20,7 @@ class DialogRemoveWidget extends StatelessWidget {
           children: [
             const Text('Are you sure remove ?'),
             const SizedBox(height: 20),
-            BlocConsumer<CreateTodoBloc, CreateTodoState>(
+            BlocConsumer<TodoBloc, TodoState>(
               listener: (context, state) {
                 if (state is RemoveTodoSuccess) {
                   Navigator.pop(context);
@@ -51,7 +51,7 @@ class DialogRemoveWidget extends StatelessWidget {
                     ),
                     TextButton(
                       onPressed: () {
-                        context.read<CreateTodoBloc>().add(OnRemove(id: id));
+                        context.read<TodoBloc>().add(OnRemove(id: id));
                       },
                       child: const Text('Yes'),
                     ),
