@@ -12,6 +12,7 @@ abstract class TodoRemoteDatasource {
   Future<TodosResponses> fetchTodos();
   Future<bool> updateTodo(UpdateTodoParams params, int id);
   Future<TodosResponses> filterTodos(FilterTodoParam param);
+  Future<bool> removeTodo(RemoveTodoParam param);
 }
 
 class TodoRemoteDatasourceImpl extends TodoRemoteDatasource {
@@ -24,13 +25,13 @@ class TodoRemoteDatasourceImpl extends TodoRemoteDatasource {
       return true;
     } on Exception catch (e) {
       if (e is SocketException) {
-        throw Exception('No Internet Connection. Please try again later: $e');
+        throw Exception('No Internet Connection: ${e.toString()}');
       } else if (e is TimeoutException) {
-        throw Exception('Request timed out. Please try again later : $e');
+        throw Exception('Request timed out : ${e.toString()}');
       } else if (e is TypeError) {
-        throw Exception("Parsing failed : $e");
+        throw Exception("Parsing failed : ${e.toString()}");
       } else {
-        throw Exception('Failed to create todo: $e');
+        throw Exception('Failed to create todo: ${e.toString()}');
       }
     }
   }
@@ -42,13 +43,13 @@ class TodoRemoteDatasourceImpl extends TodoRemoteDatasource {
       return TodosResponses(todos: todos);
     } on Exception catch (e) {
       if (e is SocketException) {
-        throw Exception('No Internet Connection. Please try again later: $e');
+        throw Exception('No Internet Connection: ${e.toString()}');
       } else if (e is TimeoutException) {
-        throw Exception('Request timed out. Please try again later : $e');
+        throw Exception('Request timed out : ${e.toString()}');
       } else if (e is TypeError) {
-        throw Exception("Parsing failed : $e");
+        throw Exception("Parsing failed : ${e.toString()}");
       } else {
-        throw Exception('Failed to create todo: $e');
+        throw Exception('Failed to create todo: ${e.toString()}');
       }
     }
   }
@@ -60,13 +61,13 @@ class TodoRemoteDatasourceImpl extends TodoRemoteDatasource {
       return true;
     } on Exception catch (e) {
       if (e is SocketException) {
-        throw Exception('No Internet Connection. Please try again later: $e');
+        throw Exception('No Internet Connection: ${e.toString()}');
       } else if (e is TimeoutException) {
-        throw Exception('Request timed out. Please try again later : $e');
+        throw Exception('Request timed out : ${e.toString()}');
       } else if (e is TypeError) {
-        throw Exception("Parsing failed : $e");
+        throw Exception("Parsing failed : ${e.toString()}");
       } else {
-        throw Exception('Failed to create todo: $e');
+        throw Exception('Failed to create todo: ${e.toString()}');
       }
     }
   }
@@ -81,13 +82,31 @@ class TodoRemoteDatasourceImpl extends TodoRemoteDatasource {
       return TodosResponses(todos: todos);
     } on Exception catch (e) {
       if (e is SocketException) {
-        throw Exception('No Internet Connection. Please try again later: $e');
+        throw Exception('No Internet Connection: ${e.toString()}');
       } else if (e is TimeoutException) {
-        throw Exception('Request timed out. Please try again later : $e');
+        throw Exception('Request timed out : ${e.toString()}');
       } else if (e is TypeError) {
-        throw Exception("Parsing failed : $e");
+        throw Exception("Parsing failed : ${e.toString()}");
       } else {
-        throw Exception('Failed to create todo: $e');
+        throw Exception('Failed to create todo: ${e.toString()}');
+      }
+    }
+  }
+
+  @override
+  Future<bool> removeTodo(RemoveTodoParam param) async {
+    try {
+      await supabase.from('todos').delete().eq('id', param.id);
+      return true;
+    } on Exception catch (e) {
+      if (e is SocketException) {
+        throw Exception('No Internet Connection: ${e.toString()}');
+      } else if (e is TimeoutException) {
+        throw Exception('Request timed out : ${e.toString()}');
+      } else if (e is TypeError) {
+        throw Exception("Parsing failed : ${e.toString()}");
+      } else {
+        throw Exception('Failed to create todo: ${e.toString()}');
       }
     }
   }
@@ -96,10 +115,7 @@ class TodoRemoteDatasourceImpl extends TodoRemoteDatasource {
 class CreateTodoParams extends Equatable {
   final String title;
   final String description;
-  const CreateTodoParams({
-    required this.title,
-    required this.description,
-  });
+  const CreateTodoParams({required this.title, required this.description});
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{'title': title, 'description': description};
@@ -112,10 +128,7 @@ class CreateTodoParams extends Equatable {
 class UpdateTodoParams extends Equatable {
   final String? title;
   final String? description;
-  const UpdateTodoParams({
-    this.title,
-    this.description,
-  });
+  const UpdateTodoParams({this.title, this.description});
   Map<String, dynamic> toMap() {
     Map<String, dynamic> data = {};
     if (title != null) data['title'] = title;
@@ -129,9 +142,14 @@ class UpdateTodoParams extends Equatable {
 
 class FilterTodoParam extends Equatable {
   final String name;
-  const FilterTodoParam({
-    required this.name,
-  });
+  const FilterTodoParam({required this.name});
   @override
   List<Object?> get props => [name];
+}
+
+class RemoveTodoParam extends Equatable {
+  final int id;
+  const RemoveTodoParam({required this.id});
+  @override
+  List<Object?> get props => [id];
 }

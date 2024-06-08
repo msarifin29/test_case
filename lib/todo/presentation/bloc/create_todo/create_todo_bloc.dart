@@ -22,18 +22,15 @@ class CreateTodoBloc extends Bloc<CreateTodoEvent, CreateTodoState> {
         );
         emit(CreateTodoSuccess(ok: ok));
       } catch (e) {
+        debugPrint(e.toString());
         if (e is SocketException) {
           emit(const CreateTodoFailure('No Internet Connection'));
-          debugPrint('SocketException : ${e.toString()}');
         } else if (e is TimeoutException) {
           emit(const CreateTodoFailure('Request time out'));
-          debugPrint('TimeoutException : ${e.toString()}');
         } else if (e is TypeError) {
           emit(const CreateTodoFailure('Parsing failed'));
-          debugPrint("TypeError : ${e.toString()}");
         } else {
           emit(const CreateTodoFailure('Failed to create todo'));
-          debugPrint(e.toString());
         }
       }
     });
@@ -46,18 +43,33 @@ class CreateTodoBloc extends Bloc<CreateTodoEvent, CreateTodoState> {
         );
         emit(UpdateTodoSuccess(ok: ok));
       } catch (e) {
+        debugPrint(e.toString());
         if (e is SocketException) {
           emit(const UpdateTodoFailure('No Internet Connection'));
-          debugPrint('SocketException : ${e.toString()}');
         } else if (e is TimeoutException) {
           emit(const UpdateTodoFailure('Request time out'));
-          debugPrint('TimeoutException : ${e.toString()}');
         } else if (e is TypeError) {
           emit(const UpdateTodoFailure('Parsing failed'));
-          debugPrint("TypeError : ${e.toString()}");
         } else {
           emit(const UpdateTodoFailure('Failed to create todo'));
-          debugPrint(e.toString());
+        }
+      }
+    });
+    on<OnRemove>((event, emit) async {
+      emit(RemoveTodoLoading());
+      try {
+        final ok = await repository.removeTodo(RemoveTodoParam(id: event.id));
+        emit(RemoveTodoSuccess(ok: ok));
+      } catch (e) {
+        debugPrint(e.toString());
+        if (e is SocketException) {
+          emit(const RemoveTodoFailure('No Internet Connection'));
+        } else if (e is TimeoutException) {
+          emit(const RemoveTodoFailure('Request time out'));
+        } else if (e is TypeError) {
+          emit(const RemoveTodoFailure('Parsing failed'));
+        } else {
+          emit(const RemoveTodoFailure('Failed to create todo'));
         }
       }
     });

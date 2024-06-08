@@ -40,3 +40,19 @@ final class UpdateTodoFailure extends CreateTodoState {
   @override
   List<Object> get props => [message];
 }
+
+final class RemoveTodoLoading extends CreateTodoState {}
+
+final class RemoveTodoSuccess extends CreateTodoState {
+  final bool ok;
+  const RemoveTodoSuccess({required this.ok});
+  @override
+  List<Object> get props => [ok];
+}
+
+final class RemoveTodoFailure extends CreateTodoState {
+  final String message;
+  const RemoveTodoFailure(this.message);
+  @override
+  List<Object> get props => [message];
+}

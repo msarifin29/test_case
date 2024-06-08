@@ -6,6 +6,7 @@ abstract class TodoRepository {
   Future<TodosResponses> fetchTodos();
   Future<bool> updateTodo(UpdateTodoParams params, int id);
   Future<TodosResponses> filterTodos(FilterTodoParam param);
+  Future<bool> removeTodo(RemoveTodoParam param);
 }
 
 class TodoRepositoryImpl extends TodoRepository {
@@ -30,5 +31,10 @@ class TodoRepositoryImpl extends TodoRepository {
   @override
   Future<TodosResponses> filterTodos(FilterTodoParam param) async {
     return await datasource.filterTodos(param);
+  }
+
+  @override
+  Future<bool> removeTodo(RemoveTodoParam param) async {
+    return await datasource.removeTodo(param);
   }
 }

@@ -36,3 +36,14 @@ class OnUpdate extends CreateTodoEvent {
     return 'OnUpdate{title: $title, description: $description, id: $id}';
   }
 }
+
+class OnRemove extends CreateTodoEvent {
+  const OnRemove({required this.id});
+  final int id;
+  @override
+  List<Object> get props => [id];
+  @override
+  String toString() {
+    return 'OnRemove{id: $id}';
+  }
+}
