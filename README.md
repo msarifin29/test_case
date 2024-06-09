@@ -25,8 +25,8 @@ Replace `BASE_URL` and `API_KEY` with your supabase in Dashboard
 1. Create new file .env in the root project
 2. Copy BASE_URL AND API_KEY in your `.env` file
 ```
-BASE_URL=[see on google drive];
-API_KEY=[see on google drive];
+BASE_URL=[see on google document];
+API_KEY=[see on google document];
 ```
 3. Update your pupspec.yaml file by following this code
 ```
